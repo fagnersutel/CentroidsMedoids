@@ -1,0 +1,2 @@
+# CentroidsMedoids
+Centroids e Medoids
