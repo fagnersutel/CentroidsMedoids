@@ -4,7 +4,7 @@
 #                                   28/03/2019                                 #
 ################################################################################
 
-pol <- rbind(c(-180,-20), c(-60,-20), c(-180,-35), c(-100,-40), c(-160,25), c(-120,9), c(-60, 0), c(-160,-60), c(-180,-20))
+pol <- rbind(c(-180,-20), c(-60,-20), c(-60,-10), c(-180,-35), c(-100,-35), c(-160,25), c(-100,9), c(-60, 0), c(-160,-60), c(-180,-20))
 pol = as.data.frame(pol)
 names(pol) = c("X", "Y")
 pol
@@ -32,6 +32,39 @@ legend("bottomright",
        text.col = "black", 
        horiz = F , 
        inset = c(0.1, 0.1))
+
+
+
+pol <- rbind(c(-180,-20), c(-60,-20), c(-110,-20), c(-60,-10), c(-180,-35), c(-100,-40), c(-160,25), c(-120,9), c(-60, 0), c(-160,-60), c(-180,-20))
+pol = as.data.frame(pol)
+names(pol) = c("X", "Y")
+pol
+library(geosphere)
+centroid(pol) 
+plot(pol, pch = 7, col = "black", xlab = 'Coordenada X', ylab = 'Coordenada Y', 
+     main = 'Centróides por biblioteca')
+points(centroid(pol), pch = 17, col = "red")
+
+library(cluster)
+points(pam(pol, 1)$medoids, pch = 13, col = "green")
+library(rgeos)
+coordinates(pol) = ~X+Y
+#gCentroid(spdf[spdf$Name == 12,], byid=FALSE)
+gCentroid(pol, byid=FALSE)
+points(gCentroid(pol, byid=FALSE), pch = 19, col = "blue")
+
+legend("bottomright", 
+       legend = c("Geosphere", "Cluster", "rgeos"), 
+       col = c("red","green","Blue"), 
+       pch = c(17,13,19), 
+       bty = "n", 
+       pt.cex = 1, 
+       cex = 1.2, 
+       text.col = "black", 
+       horiz = F , 
+       inset = c(0.1, 0.1))
+
+
 
 
 
